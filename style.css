@@ -1,3 +1,81 @@
-body{
-    background-color: pink;
+body {
+    background-color: #F2E0D0; 
+    font-family: 'Courier New', Courier, monospace; 
+    color: #4B2E39;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+header {
+    padding: 20px;
+    width: 100%;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 64px;
+    color: #4B2E39; 
+}
+
+
+main {
+    padding: 20px;
+    width: 100%;
+    max-width: 400px; 
+}
+
+#items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.item-description {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #4B2E39; 
+    border-radius: 5px;
+    background-color: #F4DBD3;
+    color: #4B2E39; 
+}
+
+.item-completed {
+    margin-right: 10px;
+}
+
+
+button {
+    background-color: #4B2E39; 
+    color: #F4DBD3; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.item-completed:checked + .item-description{
+    text-decoration: line-through;
+}
+
+button:hover {
+    background-color: #D2979B; 
+}
+
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #D2979B; 
+}
+
+input[type="checkbox"] {
+    accent-color: #D2979B; 
 }
