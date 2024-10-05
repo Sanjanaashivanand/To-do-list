@@ -14,7 +14,7 @@ In this project, I aimed to demonstrate the use of **local storage** in the brow
 ## Demo Video
 Here’s a quick demonstration of the app:
 
-[![Watch the video]([https://www.youtube.com/watch?v=VIDEO](https://github.com/user-attachments/assets/823a84eb-8d43-4dcb-b5de-1f8da0540223)
+https://github.com/user-attachments/assets/823a84eb-8d43-4dcb-b5de-1f8da0540223
 
 
 
