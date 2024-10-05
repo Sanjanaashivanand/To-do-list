@@ -1,6 +1,6 @@
 const items_container = document.getElementById("items");
-const item_template = document.getElementById("list-item-template")
-const add_button = document.getElementById("add-button")
+const item_template = document.getElementById("list-item-template");
+const add_button = document.getElementById("add-button");
 
 let items = getItems();
 
@@ -9,77 +9,80 @@ function getItems() {
     return JSON.parse(value);
 }
 
-function setItems(items){
-    const ItemsJSON = JSON.stringify(items);
-    localStorage.setItem("todo", ItemsJSON)
+function setItems(items) {
+    const itemsJSON = JSON.stringify(items);
+    localStorage.setItem("todo", itemsJSON);
 }
 
-function updateItems(item, key, value){
+function updateItems(item, key, value) {
     item[key] = value;
     setItems(items);
     refreshList();
 }
 
-function deleteItem(item,key){
-    items.splice(key,1);
-    refreshList()
+function deleteItem(index) {
+    items.splice(index, 1);
+    setItems(items); // Update local storage after deletion
+    refreshList();
 }
 
-function addItem(){
-    items.unshift({
+function addItem() {
+    items.push({
         description: "",
-        completed: false
+        completed: false,
     });
 
-    setItems(items);
+    setItems(items); // Save new item to local storage
     refreshList();
 }
 
 function refreshList() {
+    // Sort items with completed ones at the end
+    items.sort((a, b) => a.completed - b.completed);
 
-    items.sort((a,b)=>{
-        if(a.completed){
-            return 1;
-        }
-        if(b.completed){
-            return -1;
-        }
-    })
-
+    // Clear the container
     items_container.innerHTML = "";
-    console.log("ITEMS", items)
-    items.forEach((item, key) => {
+
+    items.forEach((item, index) => {
         const itemElement = item_template.content.cloneNode(true);
-        const descriptionInput = itemElement.querySelector(".item-description")
+        const descriptionInput = itemElement.querySelector(".item-description");
         const completedInput = itemElement.querySelector(".item-completed");
         const deleteBtn = itemElement.querySelector('.delete-btn');
 
+        // Populate the fields with the current item values
         descriptionInput.value = item.description;
         completedInput.checked = item.completed;
 
-        descriptionInput.addEventListener("change", ()=>{
+        // Update description when input changes
+        descriptionInput.addEventListener("change", () => {
             updateItems(item, "description", descriptionInput.value);
-        })
+        });
 
+        // Update completed status when checkbox changes
         completedInput.addEventListener("change", (event) => {
             if (descriptionInput.value.trim() === "") {
+                // If description is empty, prevent marking as completed
                 event.preventDefault();
-                completedInput.checked = false; 
+                completedInput.checked = false;
             } else {
                 updateItems(item, "completed", completedInput.checked);
             }
         });
 
+        // Delete item when delete button is clicked
         deleteBtn.addEventListener("click", () => {
-            deleteItem(item, key);
-        })
+            deleteItem(index); // Pass index instead of the item
+        });
 
-        items_container.append(itemElement)
-    })
+        // Append the new item element to the container
+        items_container.append(itemElement);
+    });
 }
 
+// Add item when add button is clicked
 add_button.addEventListener("click", () => {
     addItem();
-})
+});
 
+// Initial call to refresh the list
 refreshList();
