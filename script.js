@@ -20,6 +20,11 @@ function updateItems(item, key, value){
     refreshList();
 }
 
+function deleteItem(item,key){
+    items.splice(key,1);
+    refreshList()
+}
+
 function addItem(){
     items.unshift({
         description: "",
@@ -31,7 +36,7 @@ function addItem(){
 }
 
 function refreshList() {
-    
+
     items.sort((a,b)=>{
         if(a.completed){
             return 1;
@@ -47,6 +52,7 @@ function refreshList() {
         const itemElement = item_template.content.cloneNode(true);
         const descriptionInput = itemElement.querySelector(".item-description")
         const completedInput = itemElement.querySelector(".item-completed");
+        const deleteBtn = itemElement.querySelector('.delete-btn');
 
         descriptionInput.value = item.description;
         completedInput.checked = item.completed;
@@ -55,9 +61,17 @@ function refreshList() {
             updateItems(item, "description", descriptionInput.value);
         })
 
-        completedInput.addEventListener("change", ()=>{
-            console.log(completedInput)
-            updateItems(item, "completed", completedInput.checked);
+        completedInput.addEventListener("change", (event) => {
+            if (descriptionInput.value.trim() === "") {
+                event.preventDefault();
+                completedInput.checked = false; 
+            } else {
+                updateItems(item, "completed", completedInput.checked);
+            }
+        });
+
+        deleteBtn.addEventListener("click", () => {
+            deleteItem(item, key);
         })
 
         items_container.append(itemElement)

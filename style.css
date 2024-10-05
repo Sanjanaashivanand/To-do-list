@@ -28,15 +28,23 @@ header h1 {
 main {
     padding: 20px;
     width: 100%;
-    max-width: 400px; 
 }
 
 #items {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; 
     align-items: center;
     margin-bottom: 15px;
+    max-height: calc(5 * 60px); /* Adjust according to your item height (e.g., 60px per item) */
+    overflow-y: auto; /* Allow for scrolling */
+    padding: 20px;
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+}
+
+
+.item{
+    margin-bottom: 10px;
 }
 
 .item-description {
@@ -79,4 +87,24 @@ input[type="text"]:focus {
 
 input[type="checkbox"] {
     accent-color: #D2979B; 
+}
+
+/* Delete Button Styling */
+.delete-btn {
+    background-color: #E84855; /* Vintage red for delete button */
+    color: #FFF7F3; /* Creamy white text */
+    border: 2px solid #4B2E39; /* Dark brown border */
+    padding: 10px 25px; /* Size of the button */
+    border-radius: 50px; /* Rounded, pill-shaped button */
+    font-size: 16px; /* Button text size */
+    text-transform: uppercase; /* Retro uppercase style */
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #D2979B, 4px 4px 0px #4B2E39; /* Strong retro shadow */
+    transition: all 0.3s ease-in-out; /* Smooth hover effect */
+}
+
+.delete-btn:active {
+    transform: translateY(4px); /* Slightly "pressed" effect when clicked */
+    box-shadow: 2px 2px 0px #4B2E39, 4px 4px 0px #D2979B; /* Less shadow when pressed */
 }
